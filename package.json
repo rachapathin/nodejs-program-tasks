@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node -- ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"mentoring program\"",
+    "babel-node": "babel-node --presets=env,stage-2",
+    "start": "nodemon --exec npm run babel-node -- ./app.js"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-2"
+    ]
   },
   "repository": {
     "type": "git",
