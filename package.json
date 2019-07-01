@@ -4,14 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"mentoring program\"",
-    "babel-node": "babel-node --presets=env,stage-2",
-    "start": "nodemon --exec npm run babel-node -- ./app.js"
-  },
-  "babel": {
-    "presets": [
-      "env",
-      "stage-2"
-    ]
+    "start": "nodemon --exec babel-node ./app.js"
   },
   "repository": {
     "type": "git",
@@ -25,10 +18,11 @@
   "homepage": "https://github.com/rachapathin/nodejs-program-tasks#readme",
   "description": "",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.26.0",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-stage-2": "^7.0.0",
+    "@babel/register": "^7.4.4",
+    "babel-core": "^7.0.0-bridge.0",
     "nodemon": "^1.19.1"
   },
   "dependencies": {}
