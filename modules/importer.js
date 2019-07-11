@@ -1,9 +1,9 @@
 import fs from 'fs';
 
 export default class Importer {
-    constructor(eventEmitter, async = true){
+    constructor(eventEmitter, asyncMode = true){
         this.eventEmitter = eventEmitter;
-        this.async = async;
+        this.async = asyncMode;
     }
 
     listenChanges() {
