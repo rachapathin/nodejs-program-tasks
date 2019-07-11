@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from 'fs';
 
 export default class Importer {
     constructor(eventEmitter, async = true){

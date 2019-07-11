@@ -1,5 +1,5 @@
-import EventEmitter from "events";
-import fs from "fs";
+import EventEmitter from 'events';
+import fs from 'fs';
 
 export default class DirWatcher extends EventEmitter {
     constructor() {
@@ -41,9 +41,10 @@ export default class DirWatcher extends EventEmitter {
     }
 
     isEmpty(obj) {
-        for(var key in obj) {
-            if(obj.hasOwnProperty(key))
+        for(let key in obj) {
+            if(obj.hasOwnProperty(key)){
                 return false;
+            }
         }
         return true;
     }
