@@ -5,6 +5,7 @@ const through = require('through2');
 const csvjson = require('csvjson');
 
 
+const actionsList = {reverse, transform, outputFile, convertFromFile, convertToFile, cssBundler};
 
 program.option('-a, --action <string>', 'read action')
 .option('-f, --file <string>', 'read file')
@@ -17,28 +18,18 @@ if (process.argv.length < 3) {
     program.help();
 } else if (process.argv[2] == '-h' || process.argv[2] == '--help') {
     program.help();       
-} else{
-    switch(program.action) {
-        case 'reverse': reverse();
-            break;
-        case 'transform': transform();
-            break;
-        case 'outputFile': outputFile();
-            break;
-        case 'convertFromFile': convertFromFile();
-            break;
-        case 'convertToFile': convertToFile();
-            break;
-        case 'cssBundler': cssBundler();
-            break;
-        default: process.stdout.write('Please pass correct arguments');
+} else {
+    if(program.action) {
+        actionsList[program.action]();
+    } else {
+        process.stdout.write('Please pass correct action');
     }
 }
 
 /* Reverse string Functionality */
 function reverse () {
     process.stdin.on('data', function (data) {
-        process.stdout.write(`Reversed String: ${data.toString().split("").reverse().join("")}`);
+        process.stdout.write(`Reversed String: ${data.toString().split('').reverse().join('')}`);
     });    
 }
 
@@ -107,7 +98,7 @@ function cssBundler() {
         res.setEncoding('utf8');
         res.on('data', function(cssData) {
             fs.appendFileSync(`${program.path}/bundle.css`, cssData);
-            console.log("CSS conntent added successfully!");
+            console.log('CSS content added successfully!');
         }); 
     });
 }
