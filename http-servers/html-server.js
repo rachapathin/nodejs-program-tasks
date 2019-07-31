@@ -6,7 +6,7 @@ const replace = require('stream-replace');
 
 const server =  http.createServer((request, response) => {
     response.writeHead(200, {'Content-Type': 'text/html'});
-    const filePath = path.join(__dirname, '/index.html');
+    const filePath = path.join(__dirname, 'index.html');
     fs.createReadStream(filePath)
     .pipe(replace('message', 'New Message'))
     .pipe(response);
