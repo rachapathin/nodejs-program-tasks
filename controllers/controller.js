@@ -56,3 +56,7 @@ export const facebookLogin = (req, res) => {
 export const googleLogin = (req, res) => {
     res.status(200).end('Successfully Login Into Google Application');
 }
+
+export const twitterLogin = (req, res) => {
+    res.status(200).end('Successfully Login Into Twitter Application');
+}

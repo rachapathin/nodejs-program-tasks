@@ -8,7 +8,8 @@ import {
     checkAuthentication,
     login,
     facebookLogin,
-    googleLogin
+    googleLogin,
+    twitterLogin
 } from "../controllers/controller";
 
 const routes = (app, verifyToken) => {
@@ -23,14 +24,18 @@ const routes = (app, verifyToken) => {
     app.route('/auth').post((req, res, next) => {
         next();
     }, checkAuthentication);
-
+    // Local strategy route
     app.route('/login').post(passport.authenticate('local'), login);
-    
+    // Facebook strategy route
     app.route('/facebook/login').get(passport.authenticate('facebook'));
     app.route('/facebook/login/callback').get(passport.authenticate('facebook'), facebookLogin);
-
+    // Google Strategey route
     app.route('/google/login').get(passport.authenticate('google', { scope: ['profile'] }));
     app.route('/google/login/callback').get(passport.authenticate('google'), googleLogin);
+
+    // Twitter Strategey route
+    app.route('/twitter/login').get(passport.authenticate('twitter'));
+    app.route('/twitter/login/callback').get(passport.authenticate('twitter'), twitterLogin);
 }
 
 export default routes;

@@ -2,6 +2,7 @@ import passport from 'passport';
 import Local from 'passport-local';
 import Facebook from 'passport-facebook';
 import GoogleStrategy from 'passport-google-oauth20';
+import TwitterStrategy from 'passport-twitter';
 
 export default function passportStrategy(loginCredentials) {
      
@@ -15,6 +16,12 @@ export default function passportStrategy(loginCredentials) {
         'clientID'        : '1078625973718-b9og3esmotuact0qmi5i23jlipk87fp8.apps.googleusercontent.com', // Google App ID
         'clientSecret'    : 'fz1jo6Xep6N-tnj_qrRGDboC', // Google App Secret
         'callbackURL'     : 'http://localhost:8080/google/login/callback'
+    };
+
+    const twitterAuth = {
+        'consumerKey'        : 'ZvCCqG1D9vAKpY1xJ6EVpfRu3', // Twitter App ID
+        'consumerSecret'    : '4gzFfbm30haw5UzwIa1QgtjWIqwNc61jVF1gdlaZqX7F6Rx1hU', // Twitter App Secret
+        'callbackURL'     : 'http://localhost:8080/twitter/login/callback'
     };
 
     passport.serializeUser((user, next) => {
@@ -52,4 +59,13 @@ export default function passportStrategy(loginCredentials) {
     }, (accessToken, refreshToken, profile, done) => {
         done(null, { googleProfileId: profile.id });
     }));
-} 
+
+    // Twitter strategy
+    passport.use('twitter', new TwitterStrategy({
+        "consumerKey"        : twitterAuth.consumerKey,
+        "consumerSecret"    : twitterAuth.consumerSecret,
+        "callbackURL"     : twitterAuth.callbackURL
+    }, (accessToken, refreshToken, profile, done) => {
+        done(null, { googleProfileId: profile.id });
+    }));
+}
