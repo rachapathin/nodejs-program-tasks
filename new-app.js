@@ -1,15 +1,27 @@
 import express from 'express';
 import routes from './routes/routes';
-import {cookieParser, queryParser} from './middlewares';
+import bodyParser from 'body-parser';
+import {cookieParser, queryParser, jwtVerify, passportStrategy} from './middlewares';
+import passport from 'passport';
+import expressSession from 'express-session';
+import loginCredentails from './data/logincredentials';
 
 const app =  express();
 
 // Added middlewares for parsing
 app.use(cookieParser);
 app.use(queryParser);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(expressSession({secret: 'secretkey', saveUninitialized: false, resave: false}));
+
+// Passport strategy block
+app.use(passport.initialize());
+passportStrategy(loginCredentails);
 
 // Routes configuration
-routes(app);
+routes(app, jwtVerify);
 
 // Default Route 
 app.get('/', (req, res) =>
