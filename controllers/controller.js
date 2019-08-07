@@ -1,4 +1,5 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
+import loginCredentails from '../data/logincredentials';
 
 export const getProducts = (req, res) => {
     res.send("ALL Products"); 
@@ -22,7 +23,7 @@ export const getAllUsers = (req, res) => {
 
 export const checkAuthentication = (req, res) => {
     const reqBody = req.body;
-    if( reqBody.username === 'nageswar' && reqBody.password === '123456') {
+    if( reqBody.username === loginCredentails.data.username && reqBody.password === loginCredentails.data.password) {
         jwt.sign({ 'username': reqBody.username }, 'secretkey', (err, token) => {
             res.status("200");
             res.send({
