@@ -1,11 +1,10 @@
 import app from './new-app' ;
+require('dotenv').config();
 
-const port = process.env.PORT || 8080 ;
-
-app.listen(port, () =>
-    console .log( `App listening on port ${port} !` )
+app.listen(process.env.PORT, () =>
+    console .log( `App listening on port ${process.env.PORT} !` )
 );
 
 app.get('/', (req, res) =>
-    res.send( `App listening on port ${port} !` )
+    res.send( `App listening on port ${process.env.PORT} !` )
 );

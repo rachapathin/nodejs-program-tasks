@@ -25,7 +25,7 @@ routes(app, jwtVerify);
 
 // Default Route 
 app.get('/', (req, res) =>
-    res.send(`Node and express server is running on port ${PORT}`)
+    res.send(`Node and express server is running on port ${process.env.PORT}`)
 );
 
 export default app;
