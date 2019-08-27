@@ -12,10 +12,6 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-      return queryInterface.bulkInsert('User', [{
-        name: 'Rachapathi Nageswararao',
-        email: 'nageswararao_rachapathi@epam.com'
-      }], {});
   },
 
   down: (queryInterface, Sequelize) => {

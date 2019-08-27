@@ -12,11 +12,6 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-  return queryInterface.bulkInsert('Product', [{
-    name: 'Product1',
-    price: 100,
-    reviews: 'Good Product.'
-  }], {});
   },
 
   down: (queryInterface, Sequelize) => {
