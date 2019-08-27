@@ -1,24 +1,54 @@
-const jwt = require('jsonwebtoken');
 import loginCredentails from '../data/logincredentials';
+import {Product, User} from '../models';
+const jwt = require('jsonwebtoken');
 
 export const getProducts = (req, res) => {
-    res.send("ALL Products"); 
+    Product.findAll().then((products) => {
+        if (!products.length) {
+            res.status(400).send('No products available.');
+        } else {
+            res.json(products);
+        }
+    }).catch((error) => console.log('Error:', error));
 }
 
 export const getSingleProduct = (req, res) => {
-    res.send("SINGLE Product"); 
+    Product.findOne({ where: { id: req.params.id } }).then((item) => {
+        if (!item) {
+            res.status(400).send('No product available.');
+        } else { 
+            res.json(item);
+        }
+    }).catch((error) => console.log('Error:', error));
 }
 
 export const getAllReviewsForProduct = (req, res) => {
-    res.send("ALL reviews for a single product"); 
+    Product.findOne({ where: { id: +req.params.id } }).then((item) => {
+        if (!item) {
+            res.send('No product available.');
+        }
+        if (!item.reviews) {
+            res.send('No reviews found.');
+        }
+        res.send(JSON.stringify(item.reviews));
+    }).catch((error) => console.log('Error:', error));
 }
 
 export const addNewProduct = (req, res) => {
-    res.send("Added New Product"); 
+    const { name, price, reviews } = req.body;
+    Product.create({ name, price, reviews })
+        .then((item) => res.json(item))
+        .catch((error) => console.log('Error:', error));
 }
 
-export const getAllUsers = (req, res) => {
-    res.send("ALL Users"); 
+export const getAllUsers = (req, res) => { 
+    User.findAll().then((users) => {
+        if (!users.length) {
+            res.send('No users found');
+        } else {
+            res.json(users);
+        }
+    }).catch((error) => console.log('Error: ', error));
 }
 
 export const checkAuthentication = (req, res) => {
