@@ -1,6 +1,7 @@
 import app from './new-app' ;
 import Sequelize from 'sequelize';
 import dbConfig from './config/database.json';
+import mongodb from './connect/mongodbconnect'
 
 require('dotenv').config();
 
@@ -27,3 +28,8 @@ sequelize
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
+
+const mongodbConnection = mongodb.connection;
+mongodbConnection.on('error', (err) => console.info('MongoDB Connection error: ', err.message));
+mongodbConnection.on('open', () => console.info('MongoDB Connection established...'));
+mongodbConnection.on('disconnected', () => console.info('MongoDB disconnected...'));

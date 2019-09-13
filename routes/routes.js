@@ -12,6 +12,12 @@ import {
     twitterLogin
 } from "../controllers/controller";
 
+import { getAllCities, addNewCity, updateCity, deleteCity} from "../controllers/cities";
+
+import { addProduct, getAllProducts, deleteSingleProduct} from "../controllers/products";
+
+import { addUser, getUsers, deleteSingleUser} from "../controllers/users";
+
 const routes = (app, verifyToken) => {
     app.route('/api/products').get(verifyToken,  getProducts).post(verifyToken, addNewProduct)
 
@@ -36,6 +42,27 @@ const routes = (app, verifyToken) => {
     // Twitter Strategey route
     app.route('/twitter/login').get(passport.authenticate('twitter'));
     app.route('/twitter/login/callback').get(passport.authenticate('twitter'), twitterLogin);
+
+    // Get cities and add new city route
+    app.route('/api/cities').get(getAllCities).post(addNewCity);
+    // Update city route
+    app.route('/api/cities/:id').put(updateCity);
+    // Delete city route
+    app.route('/api/cities/:id').delete(deleteCity);
+
+    //Get all users Route  and add user route
+    app.route('/api/allusers').get(getUsers).post(addUser)
+    // Delete users route
+    app.route('/api/users/:id').delete(deleteSingleUser);
+
+    //Get all products Route 
+    app.route('/api/allproducts').get(getAllProducts).post(addProduct)
+
+    // Delete products route
+    app.route('/api/products/:id').delete(deleteSingleProduct);
+    
+
+
 }
 
 export default routes;
