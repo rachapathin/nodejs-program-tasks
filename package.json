@@ -44,6 +44,7 @@
     "sequelize": "^5.15.0",
     "sequelize-cli": "^5.5.0",
     "stream-replace": "^1.0.0",
+    "swagger": "^0.7.5",
     "through2": "^3.0.1"
   }
 }
