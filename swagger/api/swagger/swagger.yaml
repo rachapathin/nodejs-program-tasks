@@ -1,0 +1,389 @@
+---
+swagger: "2.0"
+info:
+  description: NodeJS Mentoring Programm
+  version: 1.0.0
+  title: API documentation for NodeJS Mentoring Programm
+  contact:
+    email: rachapathi.nageswararao@gmail.com
+host: virtserver.swaggerhub.com
+basePath: rachapathin/nodejs-program-tasks/1.0.0
+tags:
+- name: users
+  description: API for users
+- name: cities
+  description: API for cities
+- name: products
+  description: API for products
+schemes:
+- https
+- http
+paths:
+  /products:
+    get:
+      tags:
+      - products
+      summary: Get all products
+      description: Get all products
+      operationId: getAllProducts
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: matching criteria for search results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Product_response'
+        500:
+          description: Error
+          schema:
+            type: object
+    x-swagger-router-controller: products
+  /product:
+    post:
+      tags:
+      - products
+      summary: Create product
+      description: Create product
+      operationId: addProduct
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: product details - name, price, reviews
+        required: false
+        schema:
+          $ref: '#/definitions/Product_body'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Product_response'
+        500:
+          description: Error
+          schema:
+            type: object
+    x-swagger-router-controller: products
+  /products/{product_id}:
+    get:
+      tags:
+      - products
+      summary: Get specific product
+      description: Get specific product
+      operationId: getProduct
+      produces:
+      - application/json
+      parameters:
+      - name: product_id
+        in: path
+        description: product ID
+        required: true
+        type: string
+      responses:
+        200:
+          description: matching criteria for search results
+          schema:
+            $ref: '#/definitions/Product_response'
+        500:
+          description: Error
+          schema:
+            type: object
+    x-swagger-router-controller: products
+  /producrs/{product_id}/reviews:
+    get:
+      tags:
+      - products
+      summary: Get specific product's reviews
+      description: Get specific product's reviews
+      operationId: getReviews
+      produces:
+      - application/json
+      parameters:
+      - name: product_id
+        in: path
+        description: product ID
+        required: true
+        type: string
+      responses:
+        200:
+          description: matching criteria for search results
+          schema:
+            type: array
+            items:
+              type: string
+        500:
+          description: Error
+    x-swagger-router-controller: products
+  /cities:
+    get:
+      tags:
+      - cities
+      summary: Get all cities
+      description: Get all cities
+      operationId: getAllCities
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: matching criteria for search results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City_response'
+        400:
+          description: Error
+          schema:
+            type: object
+    post:
+      tags:
+      - cities
+      summary: Creates a city
+      description: Creates a city
+      operationId: createCity
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: data for city - country, capital, name, location
+        required: false
+        schema:
+          $ref: '#/definitions/City_body'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/City_response'
+        500:
+          description: Error
+          schema:
+            type: object
+    x-swagger-router-controller: cities
+  /city:
+    get:
+      tags:
+      - cities
+      summary: Gets a random city
+      description: Gets a random city
+      operationId: getRandomCity
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/City_response'
+        400:
+          description: Error
+          schema:
+            type: object
+    x-swagger-router-controller: cities
+  /users:
+    get:
+      tags:
+      - users
+      summary: Gets all users
+      description: Gets all users
+      operationId: getAllUsers
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: matching criteria for search results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User_response'
+        500:
+          description: Error
+          schema:
+            type: object
+    x-swagger-router-controller: users
+  /user:
+    post:
+        tags:
+        - users
+        summary: Creates a new user
+        description: Creates a new user
+        operationId: addUser
+        consumes:
+        - application/json
+        produces:
+        - application/json
+        parameters:
+        - in: body
+          name: body
+          description: user data - username, firstname, lastname, email, password
+          required: false
+          schema:
+            $ref: '#/definitions/User_body'
+        responses:
+          200:
+            description: OK
+            schema:
+              $ref: '#/definitions/User_response'
+          500:
+            description: Error
+            schema:
+              type: object
+definitions:
+  Error:
+    type: object
+    properties:
+      code:
+        type: string
+        example: "404"
+      messsage:
+        type: string
+        example: Not Found
+      data:
+        type: string
+  Product_body:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+        minLength: 3
+      price:
+        type: number
+      reviews:
+        type: array
+        items:
+          type: string
+    example:
+      price: 9.88
+      name: name
+      reviews:
+      - good
+      - excellent
+  Product_response:
+    type: object
+    properties:
+      name:
+        type: string
+      price:
+        type: number
+      reviews:
+        type: array
+        items:
+          type: string
+      id:
+        type: string
+      lastModifiedDate:
+        type: string
+    example:
+      price: 888.9
+      reviews:
+      - Expensive camera mobile
+      id: 5d5116c05cb5184f68fcca57
+      name: Pixel 3XL
+      lastModifiedDate: 2019-08-12T07:35:28.227Z
+  Location:
+    type: object
+    properties:
+      lat:
+        type: number
+      long:
+        type: number
+    example:
+      lat: 17.385
+      long: 78.4867
+  City_body:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+      country:
+        type: string
+      capital:
+        type: boolean
+        default: false
+      location:
+        $ref: '#/definitions/Location'
+    example:
+      country: India
+      capital: true
+      name: Delhi
+      location:
+        lat: 17.385
+        long: 78.4867
+  City_response:
+    type: object
+    required:
+    - name
+    properties:
+      name:
+        type: string
+      country:
+        type: string
+      capital:
+        type: boolean
+        default: false
+      location:
+        $ref: '#/definitions/Location'
+      _id:
+        type: string
+      lastModifiedDate:
+        type: string
+    example:
+      country: India
+      capital: true
+      lastModifiedDate: 2019-08-12T07:35:28.227Z
+      name: Delhi
+      location:
+        lat: 17.385
+        long: 78.4867
+      _id: id
+  User_body:
+    type: object
+    required:
+    - email
+    - password
+    - username
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    example:
+      email: admin@xyz.com
+      username: admin
+      password: password
+  User_response:
+    type: object
+    properties:
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      lastModifiedDate:
+        type: string
+      _id:
+        type: string
+      __v:
+        type: number
+    example:
+      _id: 5d51392a7963f92e68e7ab76
+      username: admin
+      email: admin@xyz.com
+      password: password
+      lastModifiedDate: 2019-08-12T10:02:18.203Z
+      __v: 0
